@@ -2,19 +2,23 @@ library(smoof)
 library(ecr)
 library(ggplot2)
 library(logger)
+library(extrafont)
 
+# font_import(pattern = "lmodern*")
+loadfonts()
 set.seed(42)
 
 calculate_mins <- function(n) {
   fn <- makeAckleyFunction(dimensions = n)
-  
-  PRS_mins <-
-    replicate(50,
-      min(replicate(1000, fn(runif(n, min = -32.768, max = 32.768))))
-    )
+  # fn <- makeRosenbrockFunction(dimensions = n)
   
   lower = getLowerBoxConstraints(fn)
   upper = getUpperBoxConstraints(fn)
+  
+  PRS_mins <-
+    replicate(50,
+      min(replicate(1000, fn(runif(n, min = lower[[1]], max = upper[[1]]))))
+    )
   
   GA_mins <-
     replicate(50,
@@ -38,20 +42,21 @@ results <- lapply(c(2, 10, 20), calculate_mins)
 data_to_plot <- do.call(rbind, lapply(1:length(results), function(i) {
   n <- c(2, 10, 20)[i]
   data.frame(
-    Method = factor(rep(c("PRS", "GA"), each = 50), levels = c("PRS", "GA")),
-    Min_Value = c(results[[i]]$PRS, results[[i]]$GA),
-    Dimension = as.factor(n)
+    method = factor(rep(c("PRS", "GA"), each = 50), levels = c("PRS", "GA")),
+    min_value = c(results[[i]]$PRS, results[[i]]$GA),
+    dimension = as.factor(n)
   )
 }))
 
-pdf(file="ackley_boxplot.pdf")
-
-ggplot(data_to_plot, aes(x = Dimension, y = Min_Value, fill = Method)) +
+ggplot(data_to_plot, aes(x = dimension, y = min_value, fill = method)) +
   geom_boxplot() +
   theme_bw() +
-  theme(panel.grid.major.x = element_blank()) +
-  labs(title = "Znalezione minima n-wymiarowej funkcji Ackley'a", 
-       x = "wymiar (n)", 
-       y = "minimum")
-
-dev.off()
+  theme(panel.grid.major.x = element_blank(),
+        text = element_text(size=10, family="LM Roman 10"),
+        plot.title = element_text(hjust = 0.5)) +
+  labs(
+    title = "Znalezione minima n-wymiarowej funkcji Ackley'a",
+    # title = "Znalezione minima n-wymiarowej funkcji Rosenbrock'a",
+    x = "wymiar (n)",
+    y = "minimum",
+    fill = "metoda")

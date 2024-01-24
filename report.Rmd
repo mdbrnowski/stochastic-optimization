@@ -1,0 +1,18 @@
+---
+title: "Raport wyników"
+author: "Michał Dobranowski"
+date: "2024-01-24"
+output: pdf_document
+---
+
+## Funkcja Ackley'a
+
+```{r, echo=FALSE, out.width = "85%", fig.align="center"}
+knitr::include_graphics("imgs/ackley_boxplot.pdf")
+```
+
+## Funkcja Rosenbrock'a
+
+```{r, echo=FALSE, out.width = "85%", fig.align="center"}
+knitr::include_graphics("imgs/rosenbrock_boxplot.pdf")
+```
