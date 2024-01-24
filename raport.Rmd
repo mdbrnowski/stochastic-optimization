@@ -1,0 +1,12 @@
+---
+title: "Raport wyników"
+author: "Michał Dobranowski"
+date: "2024-01-24"
+output: pdf_document
+---
+
+## Funkcja Ackley'a
+
+```{r pressure, echo=FALSE, out.width = "70%", fig.align="center"}
+knitr::include_graphics("ackley_boxplot.pdf")
+```
