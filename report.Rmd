@@ -1,24 +1,24 @@
 ---
 title: "Raport wyników"
 author: "Michał Dobranowski"
-date: "2024-01-24"
+date: "24 stycznia 2024"
 documentclass: scrartcl
 header-includes:
    - \usepackage[polish]{babel}
 output: pdf_document
 ---
 
-W ramach doświadczenia porównano poszukiwanie przypadkowe (ang.\ *Pure Random Search*, *PRS*) z algorytmem genetycznym (ang.\ *Genetic Algorithm*, *GA*) na przykładzie funkcji Ackley'a oraz funkcji Rosenbrocka'a dla wymiarów $n \in \{2, 10, 20\}$.
+W ramach doświadczenia porównano poszukiwanie przypadkowe (ang.\ *Pure Random Search*, *PRS*) z algorytmem genetycznym (ang.\ *Genetic Algorithm*, *GA*) na przykładzie funkcji Ackley'a oraz funkcji Rosenbrocka dla wymiarów $n \in \{2, 10, 20\}$.
 
 # Funkcja Ackley'a
 
-## Porównanie znalezionych minimów dla obu algorytmów.
+## Porównanie znalezionych minimów dla obu algorytmów
 
 ```{r, echo=FALSE, out.width = "80%", fig.align="center"}
 knitr::include_graphics("imgs/ackley_boxplot.pdf")
 ```
 
-## Rozkład znalezionych minimów za pomocą *PRS* dla wymiaru $n \in \{2, 10, 20\}$.
+## Rozkład znalezionych minimów za pomocą *PRS* dla wymiaru $n \in \{2, 10, 20\}$
 
 ```{r, echo=FALSE, out.width = "40%", fig.align="center", fig.show="hold"}
 knitr::include_graphics(c("imgs/ackley_2_PRS.pdf",
@@ -26,7 +26,7 @@ knitr::include_graphics(c("imgs/ackley_2_PRS.pdf",
                           "imgs/ackley_20_PRS.pdf"))
 ```
 
-## Rozkład znalezionych minimów za pomocą *GA* dla wymiaru $n \in \{2, 10, 20\}$.
+## Rozkład znalezionych minimów za pomocą *GA* dla wymiaru $n \in \{2, 10, 20\}$
 
 ```{r, echo=FALSE, out.width = "40%", fig.align="center", fig.show="hold"}
 knitr::include_graphics(c("imgs/ackley_2_GA.pdf",
@@ -36,13 +36,13 @@ knitr::include_graphics(c("imgs/ackley_2_GA.pdf",
 
 # Funkcja Rosenbrocka
 
-## Porównanie znalezionych minimów dla obu algorytmów.
+## Porównanie znalezionych minimów dla obu algorytmów
 
 ```{r, echo=FALSE, out.width = "80%", fig.align="center"}
 knitr::include_graphics("imgs/rosenbrock_boxplot.pdf")
 ```
 
-## Rozkład znalezionych minimów za pomocą *PRS* dla wymiaru $n \in \{2, 10, 20\}$.
+## Rozkład znalezionych minimów za pomocą *PRS* dla wymiaru $n \in \{2, 10, 20\}$
 
 ```{r, echo=FALSE, out.width = "40%", fig.align="center", fig.show="hold"}
 knitr::include_graphics(c("imgs/rasenbrock_2_PRS.pdf",
@@ -50,7 +50,7 @@ knitr::include_graphics(c("imgs/rasenbrock_2_PRS.pdf",
                           "imgs/rasenbrock_20_PRS.pdf"))
 ```
 
-## Rozkład znalezionych minimów za pomocą *GA* dla wymiaru $n \in \{2, 10, 20\}$.
+## Rozkład znalezionych minimów za pomocą *GA* dla wymiaru $n \in \{2, 10, 20\}$
 
 ```{r, echo=FALSE, out.width = "40%", fig.align="center", fig.show="hold"}
 knitr::include_graphics(c("imgs/rasenbrock_2_GA.pdf",
@@ -74,7 +74,7 @@ knitr::include_graphics(c("imgs/rasenbrock_2_GA.pdf",
 | 10 | 28317.5324 | 414.4569 |
 | 20 | 288709.646 | 7410.093 |
 
-Przeprowadzono analizę porównawczą (za pomocą testu $t$ Welcha) wyników dla każdej z dwóch metod optymalizacji oraz dla każdej z dwóch testowanych funkcji. Jeśli przyjmiemy za hipotezę zerową równość obu rezultatów, otrzymamy wyniki bliskie zeru; dokładne wartości przedstawiono w tabeli poniżej.
+Przeprowadzono analizę porównawczą (za pomocą testu $t$ Welcha) wyników dla każdej z\ dwóch metod optymalizacji oraz dla każdej z dwóch testowanych funkcji. Jeśli przyjmiemy za hipotezę zerową równość obu rezultatów, otrzymamy wyniki bliskie zeru; dokładne wartości przedstawiono w tabeli poniżej.
 
 ```{r, eval = FALSE}
 t.test(results[[i]]$PRS, results[[i]]$GA)$p.value
@@ -86,7 +86,7 @@ t.test(results[[i]]$PRS, results[[i]]$GA)$p.value
 | 10 | $5.879935 \cdot 10^{-86}$ | $6.807034 \cdot 10^{-22}$ |
 | 20 | $1.432678 \cdot 10^{-116}$ | $4.635534 \cdot 10^{-28}$ |
 
-Jeśli jako hipotezę zerową przyjmiemy, że wyniki algorytmu genetycznego są lepsze (a więc nominalnie niższe) niż w przypadku *PRS*, otrzymamy $p$-wartości równe $1$.
+Jeśli jako hipotezę zerową przyjmiemy, że wyniki algorytmu genetycznego są lepsze (a\ więc nominalnie niższe) niż w przypadku *PRS*, otrzymamy $p$-wartości równe $1$.
 
 ```{r, eval = FALSE}
 t.test(results[[i]]$PRS, results[[i]]$GA, alternative="less")$p.value
