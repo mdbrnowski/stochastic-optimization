@@ -8,18 +8,21 @@ library(extrafont)
 loadfonts()
 set.seed(42)
 
-calculate_mins <- function(n) {
-  fn <- makeAckleyFunction(dimensions = n)
-  # fn <- makeRosenbrockFunction(dimensions = n)
-  
+f_name <- "Ackley"
+# f_name <- "Rosenbrock"
+
+
+calculate_mins <- function(n, makeFunction) {
+  fn <- makeFunction(dimensions = n)
+
   lower = getLowerBoxConstraints(fn)
   upper = getUpperBoxConstraints(fn)
-  
+
   PRS_mins <-
     replicate(50,
       min(replicate(1000, fn(runif(n, min = lower[[1]], max = upper[[1]]))))
     )
-  
+
   GA_mins <-
     replicate(50,
       ecr(
@@ -37,7 +40,14 @@ calculate_mins <- function(n) {
   return(list(PRS = PRS_mins, GA = GA_mins))
 }
 
-results <- lapply(c(2, 10, 20), calculate_mins)
+if (f_name == "Ackley") {
+  results <- lapply(c(2, 10, 20), calculate_mins, makeAckleyFunction)
+} else {  # f_name == "Rosenbrock"
+  results <- lapply(c(2, 10, 20), calculate_mins, makeRosenbrockFunction)
+}
+
+
+# ----- BOXPLOT ----- #
 
 data_to_plot <- do.call(rbind, lapply(1:length(results), function(i) {
   n <- c(2, 10, 20)[i]
@@ -54,9 +64,26 @@ ggplot(data_to_plot, aes(x = dimension, y = min_value, fill = method)) +
   theme(panel.grid.major.x = element_blank(),
         text = element_text(size=10, family="LM Roman 10"),
         plot.title = element_text(hjust = 0.5)) +
-  labs(
-    title = "Znalezione minima n-wymiarowej funkcji Ackley'a",
-    # title = "Znalezione minima n-wymiarowej funkcji Rosenbrock'a",
-    x = "wymiar (n)",
-    y = "minimum",
-    fill = "metoda")
+  labs(title = sprintf("Znalezione minima n-wymiarowej funkcji %s’a", f_name),
+       x = "wymiar (n)",
+       y = "minimum",
+       fill = "metoda")
+
+
+# ----- HISTPLOTS ----- #
+# this part requires manually setting i (1, 2 or 3) and method (PRS or GA)
+
+i <- 1
+n <- c(2, 10, 20)[i]
+method <- "PRS"
+color <- list("PRS" = "#F8766D", "GA" = "#00BFC4")[[method]]
+
+ggplot(data.frame(min_value = results[[i]][[method]]), aes(x = min_value)) +
+  geom_histogram(fill = color) +
+  theme_bw() +
+  theme(panel.grid.major.x = element_blank(),
+        text = element_text(size=10, family="LM Roman 10"),
+        plot.title = element_text(hjust = 0.5)) +
+  labs(title = sprintf("Rozkład minimów %d-wymiarowej funkcji %s’a, metoda %s", n, f_name, method),
+       x = "minimum", 
+       y = "liczba")

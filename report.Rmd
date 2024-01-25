@@ -5,14 +5,52 @@ date: "2024-01-24"
 output: pdf_document
 ---
 
-## Funkcja Ackley'a
+W ramach doświadczenia porównano poszukiwanie przypadkowe (ang. *Pure Random Search*, *PRS*) z algorytmem genetycznym (ang. *Genetic Algorithm*, *GA*) na przykładzie funkcji Ackley'a oraz funkcji Rosenbrocka'a dla wymiarów $n \in \{2, 10, 20\}$.
+
+# Funkcja Ackley'a
+
+## Porównanie znalezionych minimów dla obu algorytmów.
 
 ```{r, echo=FALSE, out.width = "85%", fig.align="center"}
 knitr::include_graphics("imgs/ackley_boxplot.pdf")
 ```
 
-## Funkcja Rosenbrock'a
+## Rozkład znalezionych minimów za pomocą *PRS* dla wymiaru $n \in \{2, 10, 20\}$.
+
+```{r, echo=FALSE, out.width = "40%", fig.align="center", fig.show="hold"}
+knitr::include_graphics(c("imgs/ackley_2_PRS.pdf",
+                          "imgs/ackley_10_PRS.pdf",
+                          "imgs/ackley_20_PRS.pdf"))
+```
+
+## Rozkład znalezionych minimów za pomocą *GA* dla wymiaru $n \in \{2, 10, 20\}$.
+
+```{r, echo=FALSE, out.width = "40%", fig.align="center", fig.show="hold"}
+knitr::include_graphics(c("imgs/ackley_2_GA.pdf",
+                          "imgs/ackley_10_GA.pdf",
+                          "imgs/ackley_20_GA.pdf"))
+```
+
+# Funkcja Rosenbrock'a
+
+## Porównanie znalezionych minimów dla obu algorytmów.
 
 ```{r, echo=FALSE, out.width = "85%", fig.align="center"}
 knitr::include_graphics("imgs/rosenbrock_boxplot.pdf")
+```
+
+## Rozkład znalezionych minimów za pomocą *PRS* dla wymiaru $n \in \{2, 10, 20\}$.
+
+```{r, echo=FALSE, out.width = "40%", fig.align="center", fig.show="hold"}
+knitr::include_graphics(c("imgs/rasenbrock_2_PRS.pdf",
+                          "imgs/rasenbrock_10_PRS.pdf",
+                          "imgs/rasenbrock_20_PRS.pdf"))
+```
+
+## Rozkład znalezionych minimów za pomocą *GA* dla wymiaru $n \in \{2, 10, 20\}$.
+
+```{r, echo=FALSE, out.width = "40%", fig.align="center", fig.show="hold"}
+knitr::include_graphics(c("imgs/rasenbrock_2_GA.pdf",
+                          "imgs/rasenbrock_10_GA.pdf",
+                          "imgs/rasenbrock_20_GA.pdf"))
 ```
