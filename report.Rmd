@@ -74,26 +74,15 @@ knitr::include_graphics(c("imgs/rasenbrock_2_GA.pdf",
 | 10 | 28317.5324 | 414.4569 |
 | 20 | 288709.646 | 7410.093 |
 
-Przeprowadzono analizę porównawczą (za pomocą testu $t$ Welcha) wyników dla każdej z\ dwóch metod optymalizacji oraz dla każdej z dwóch testowanych funkcji. Jeśli przyjmiemy za hipotezę zerową równość obu rezultatów, otrzymamy wyniki bliskie zeru; dokładne wartości przedstawiono w tabeli poniżej.
+Przeprowadzono analizę porównawczą (za pomocą testu $t$ Welcha) wyników dla każdej z\ dwóch metod optymalizacji oraz dla każdej z dwóch testowanych funkcji. Przedstawiony poniżej test prowadzi do odrzucenia hipotezy zerowej (dokładne wyniki w tabeli niżej).
 
 ```{r, eval = FALSE}
-t.test(results[[i]]$PRS, results[[i]]$GA)$p.value
+t.test(results[[i]]$PRS, results[[i]]$GA, alternative = "greater")$p.value
 ```
 
 | wymiar $n$ | funkcja Ackley'a | funkcja Rosenbrocka |
 | ---:| ---: | ---: |
-|  2 | $1.000628 \cdot 10^{-29}$ | $1.105418 \cdot 10^{-10}$ |
-| 10 | $5.879935 \cdot 10^{-86}$ | $6.807034 \cdot 10^{-22}$ |
-| 20 | $1.432678 \cdot 10^{-116}$ | $4.635534 \cdot 10^{-28}$ |
+|  2 | $5.003139 \cdot 10^{-30}$ | $5.52709e \cdot 10^{-11}$ |
+| 10 | $2.939968 \cdot 10^{-86}$ | $3.403517 \cdot 10^{-22}$ |
+| 20 | $7.163392 \cdot 10^{-117}$ | $2.317767 \cdot 10^{-28}$ |
 
-Jeśli jako hipotezę zerową przyjmiemy, że wyniki algorytmu genetycznego są lepsze (a\ więc nominalnie niższe) niż w przypadku *PRS*, otrzymamy $p$-wartości równe $1$.
-
-```{r, eval = FALSE}
-t.test(results[[i]]$PRS, results[[i]]$GA, alternative="less")$p.value
-```
-
-| wymiar $n$ | funkcja Ackley'a | funkcja Rosenbrocka |
-| ---:| ---: | ---: |
-|  2 | $1$ | $1$ |
-| 10 | $1$ | $1$ |
-| 20 | $1$ | $1$ |

@@ -85,12 +85,12 @@ ggplot(data.frame(min_value = results[[i]][[method]]), aes(x = min_value)) +
         text = element_text(size=10, family="LM Roman 10"),
         plot.title = element_text(hjust = 0.5)) +
   labs(title = sprintf("Rozkład minimów %d-wymiarowej funkcji %s’a, metoda %s", n, f_name, method),
-       x = "minimum", 
+       x = "minimum",
        y = "liczba")
 
 
 # ----- T-TESTS ----- #
 
-t.test(results[[1]]$PRS, results[[1]]$GA)$p.value
-t.test(results[[2]]$PRS, results[[2]]$GA)$p.value
-t.test(results[[3]]$PRS, results[[3]]$GA)$p.value
+t.test(results[[1]]$PRS, results[[1]]$GA, alternative = "greater")$p.value
+t.test(results[[2]]$PRS, results[[2]]$GA, alternative = "greater")$p.value
+t.test(results[[3]]$PRS, results[[3]]$GA, alternative = "greater")$p.value
